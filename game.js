@@ -9,9 +9,6 @@ var ctxPlayer;
 var enemy;
 var ctxEnemy;
 
-var drawButton;
-var clearButton;
-
 var gameWidth = 800;
 var gameHeight = 500;
 
@@ -32,13 +29,24 @@ function Player() {
     this.drawY = 0;
     this.weight = 150;
     this.height = 110;
-    
+
     this.speed = 5;
 }
 
 Player.prototype.draw = function () {
-    ctxMap.drawImage(tiles,this.srcX,this.srcY,this.weight,this.height,this.drawX,this.drawY,this.weight,this.height);
+    clearCtxPlayer();
+    ctxPlayer.drawImage(tiles,this.srcX,this.srcY,this.weight,this.height,this.drawX,this.drawY,this.weight,this.height);
 };
+
+Player.prototype.clear = function () {
+    ctxPlayer.clear();
+};
+
+Player.prototype.update = function () {
+     this.drawX +=this.speed;
+
+};
+
 
 function Enemy() {
 
@@ -53,7 +61,7 @@ function Enemy() {
 }
 
 Enemy.prototype.draw = function(){
-    ctxMap.drawImage(tiles, this.srcX,this.srcY,this.width, this.height, this.drawX,this.drawY,this.width, this.height);
+    ctxEnemy.drawImage(tiles, this.srcX,this.srcY,this.width, this.height, this.drawX,this.drawY,this.width, this.height);
 };
 
 
@@ -72,11 +80,6 @@ function init() {
     ctxEnemy = enemy.getContext("2d");
     enemy.height = gameHeight;
     enemy.width = gameWidth;
-
-    drawButton = document.getElementById("drawButton");
-    clearButton = document.getElementById("clearButton");
-    drawButton.addEventListener("click", drawRect, false);
-    clearButton.addEventListener("click", clearRect, false);
     drawBg();
     player = new Player();
     enemy = new Enemy();
@@ -86,11 +89,12 @@ function init() {
 
 function draw () {
     player.draw();
+
     enemy.draw();
 }
 
 function update() {
-
+    player.update();
 }
 
 function loop() {
@@ -112,19 +116,11 @@ function stopLoop() {
     isPlaying = false;
 }
 
-
-
-function drawRect() {
-    ctxMap.fillStyle = "#3d3d3d";
-    ctxMap.fillRect(10, 10, 100, 100);
-}
-
-function clearRect() {
-    ctxMap.clearRect(0,0,800,500);
-}
-
 function drawBg() {
-    ctxMap.drawImage(background,0,0,800,500,0,0,800,500);
+    ctxMap.drawImage(background,0,0,gameWidth,gameHeight,0,0,gameWidth,gameHeight);
 }
 
+function clearCtxPlayer() {
+    ctxPlayer.clearRect(0,0,gameWidth,gameHeight);
+}
 
