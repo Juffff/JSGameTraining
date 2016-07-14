@@ -65,28 +65,46 @@ Player.prototype.chooseDirection = function () {
 
 Player.prototype.update = function () {
     this.chooseDirection();
+    if (this.drawX > gameWidth - 300) {
+        this.drawX = gameWidth - 300;
+    }
+
+    if (this.drawX < 0) {
+        this.drawX = 0;
+    }
+
+    if (this.drawY < 0) {
+        this.drawY = 0;
+    }
+
+   /* if (this.drawY > gameHeight-this.height) {
+        this.drawY = gameHeight;
+    }*/
+console.log(this.drawY);
+
+
 };
 
 function checkKeyDown(e) {
     var keyID = e.keyCode || e.which;
     var keyChar = String.fromCharCode(keyID);
-    if(keyChar=="W"){
-        player.isUp=true;
+    if (keyChar == "W") {
+        player.isUp = true;
         e.preventDefault();
     }
 
-    if(keyChar=="S"){
-        player.isDown=true;
+    if (keyChar == "S") {
+        player.isDown = true;
         e.preventDefault();
     }
 
-    if(keyChar=="A"){
-        player.isLeft=true;
+    if (keyChar == "A") {
+        player.isLeft = true;
         e.preventDefault();
     }
 
-    if(keyChar=="D"){
-        player.isRight=true;
+    if (keyChar == "D") {
+        player.isRight = true;
         e.preventDefault();
     }
 }
@@ -94,23 +112,23 @@ function checkKeyDown(e) {
 function checkKeyUp(e) {
     var keyID = e.keyCode || e.which;
     var keyChar = String.fromCharCode(keyID);
-    if(keyChar=="W"){
-        player.isUp=false;
+    if (keyChar == "W") {
+        player.isUp = false;
         e.preventDefault();
     }
 
-    if(keyChar=="S"){
-        player.isDown=false;
+    if (keyChar == "S") {
+        player.isDown = false;
         e.preventDefault();
     }
 
-    if(keyChar=="A"){
-        player.isLeft=false;
+    if (keyChar == "A") {
+        player.isLeft = false;
         e.preventDefault();
     }
 
-    if(keyChar=="D"){
-        player.isRight=false;
+    if (keyChar == "D") {
+        player.isRight = false;
         e.preventDefault();
     }
 }
@@ -119,8 +137,8 @@ function Enemy() {
 
     this.srcX = 0;
     this.srcY = 110;
-    this.drawX = gameWidth+ Math.floor(Math.random()*10);
-    this.drawY = Math.floor(Math.random()*gameHeight);
+    this.drawX = gameWidth + Math.floor(Math.random() * 10);
+    this.drawY = Math.floor(Math.random() * gameHeight);
     this.width = 150;
     this.height = 110;
 
@@ -133,7 +151,7 @@ Enemy.prototype.draw = function () {
 };
 
 Enemy.prototype.update = function () {
-    this.drawX-=this.speed;
+    this.drawX -= this.speed;
 };
 
 Enemy.prototype.clear = function () {
